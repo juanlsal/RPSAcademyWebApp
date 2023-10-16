@@ -1,0 +1,56 @@
+﻿@model UserCreatedSubjects
+
+<h1 style="text-align:center;">Add Questions!</h1>
+<hr style="margin-bottom:40px" />
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="success-message" class="alert alert-dismissible alert-success">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" fdprocessedid="oobf64"></button>
+        <strong>Well done!</strong> @TempData["SuccessMessage"]
+    </div>
+}
+
+<form asp-action="CreateUserCreatedQuestion" method="post">
+
+    <div class="form-group mb-3">
+        <label for="question">Enter Question</label>
+        <input type="text" id="question" name="question" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="answerA">Enter Answer for option A</label>
+        <input type="text" id="answerA" name="answerA" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="answerB">Enter Answer for option B</label>
+        <input type="text" id="answerB" name="answerB" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="answerC">Enter Answer for option C</label>
+        <input type="text" id="answerC" name="answerC" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="answerD">Enter Answer for option D</label>
+        <input type="text" id="answerD" name="answerD" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="correctAnswer">Select the Correct Answer</label>
+        <select id="correctAnswer" name="correctAnswer" class="form-control">
+            <option value="1">A</option>
+            <option value="2">B</option>
+            <option value="3">C</option>
+            <option value="4">D</option>
+        </select>
+    </div>
+
+    <input type="hidden" id="userCreatedSubjectId" name="userCreatedSubjectId" value="@Model.Id" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+

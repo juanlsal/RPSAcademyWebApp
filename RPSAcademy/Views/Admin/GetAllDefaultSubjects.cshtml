@@ -1,0 +1,44 @@
+﻿@model RPSAcademy.Models.DTOs.AdminDisplayModel
+
+<h1 style="text-align:center;">Default Subjects</h1>
+<hr style="margin-bottom:40px" />
+
+<a href="CreateDefaultSubjectForm" class="btn btn-dark" style="margin-bottom: 20px;">Create New Subject</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
+
+        </tr>
+    </thead>
+    @foreach(var subject in Model.DefaultSubjects)
+    {
+        <tbody>
+            <tr class="table-light">
+                <td>@subject.SubjectName</td>
+                <td>@subject.Description</td>
+                <td>
+                    <button type="button" onclick="getDefaultSubject(@subject.id)" class="btn btn-secondary">Edit</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteDefaultSubject(@subject.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+
+<script>
+
+    function getDefaultSubject(subjectId) {
+        window.location.href = "/Admin/GetDefaultSubject?subjectId=" + subjectId;
+    }
+
+    function deleteDefaultSubject(subjectId){
+        window.location.href = "/Admin/DeleteDefaultSubject?subjectId=" + subjectId;
+    }
+</script>
+
+

@@ -1,0 +1,38 @@
+﻿@model RPSAcademy.Models.DTOs.AdminDisplayModel
+
+
+<h1 style="text-align:center;">Insert Default Question</h1>
+<h2 style="text-align:center;">Select The default subject you wish to add to</h2>
+<hr style="margin-bottom:40px" />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    @foreach (var subject in Model.DefaultSubjects)
+    {
+        <tbody>
+            <tr class="table-light">
+                <td>@subject.SubjectName</td>
+                <td>@subject.Description</td>
+                <td>
+                    <button type="button" onclick="createDefaultQuestionForm(@subject.id)" class="btn btn-dark">Select</button>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+
+
+<script>
+    function createDefaultQuestionForm(id) {
+        window.location.href = "/Admin/CreateDefaultQuestionForm?subjectId=" + id;
+    }
+</script>
+

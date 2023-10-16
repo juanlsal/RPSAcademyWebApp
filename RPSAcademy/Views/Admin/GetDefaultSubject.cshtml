@@ -1,0 +1,20 @@
+﻿@model DefaultSubjects
+<h1 style="text-align:center;">Edit Default Subject</h1>
+<hr style="margin-bottom:40px" />
+<form asp-action="UpdateDefaultSubject" method="post">
+
+    <div class="form-group mb-3">
+        <label for="newSubjectName">Subject Name</label>
+        <input type="text" id="newSubjectName" name="newSubjectName" placeholder="@Model.SubjectName" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="newDescription">Description</label>
+        <input type="text" id="newDescription" name="newDescription" placeholder="@Model.Description" class="form-control" />
+    </div>
+
+    <input type="hidden" id="subjectId" name="subjectId" value="@Model.id" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>

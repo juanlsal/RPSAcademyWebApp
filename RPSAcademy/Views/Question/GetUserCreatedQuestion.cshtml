@@ -1,0 +1,50 @@
+﻿@model UserCreatedQuestions
+
+<h1 style="text-align:center;">Edit Question</h1>
+<hr style="margin-bottom:40px" />
+
+<form asp-action="UpdateUserCreatedQuestion" method="post">
+
+    <div class="form-group mb-3">
+        <label for="newQuestion">Enter Question</label>
+        <input type="text" id="newQuestion" name="newQuestion" class="form-control" placeholder="@Model.Question" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="newAnswerA">Enter Answer for option A</label>
+        <input type="text" id="newAnswerA" name="newAnswerA" class="form-control" placeholder="@Model.AnswerA" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="newAnswerB">Enter Answer for option B</label>
+        <input type="text" id="newAnswerB" name="newAnswerB" class="form-control" placeholder="@Model.AnswerB" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="newAnswerC">Enter Answer for option C</label>
+        <input type="text" id="newAnswerC" name="newAnswerC" class="form-control" placeholder="@Model.AnswerC" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="newAnswerD">Enter Answer for option D</label>
+        <input type="text" id="newAnswerD" name="newAnswerD" class="form-control" placeholder="@Model.AnswerD" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="newCorrectAnswer">Select the Correct Answer</label>
+        <select id="newCorrectAnswer" name="newCorrectAnswer" class="form-control">
+            <option value="1">A</option>
+            <option value="2">B</option>
+            <option value="3">C</option>
+            <option value="4">D</option>
+        </select>
+    </div>
+
+    <input type="hidden" id="questionId" name="questionId" value="@Model.Id" />
+
+    <input type="hidden" id="subjectId" name="subjectId" value="@Model.UserCreatedSubjectId" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+

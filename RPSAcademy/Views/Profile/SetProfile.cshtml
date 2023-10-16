@@ -1,0 +1,21 @@
+﻿@model UserInfo
+
+
+
+
+
+<form asp-action="CreateUserInfo" method="post" enctype="multipart/form-data">
+
+    <div class="form-group mb-3">
+        <label for="prefferedName">Preferred Name</label>
+        <input type="text" id="prefferedName" name="prefferedName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="profileImageFile">Profile Picture</label>
+        <input type="file" id="profileImageFile" name="profileImageFile" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>

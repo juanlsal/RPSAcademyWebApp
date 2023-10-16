@@ -1,0 +1,31 @@
+﻿@model RPSAcademy.Models.DTOs.SubjectsAndQuestionsDisplayModel
+
+<h1 style="text-align:center;">Viewing Questions</h1>
+<h2 style="text-align:center;">in @Model.DefaultSubject.SubjectName</h2>
+<hr style="margin-bottom:40px" />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Question</th>
+            <th scope="col">Answer A</th>
+            <th scope="col">Answer B</th>
+            <th scope="col">Answer C</th>
+            <th scope="col">Answer D</th>
+            <th scope="col">Correct Answer</th>
+        </tr>
+    </thead>
+    @foreach (var question in Model.DefaultQuestions)
+    {
+        <tbody>
+            <tr class="table-light">
+                <td>@question.Question</td>
+                <td>@question.AnswerA</td>
+                <td>@question.AnswerB</td>
+                <td>@question.AnswerC</td>
+                <td>@question.AnswerD</td>
+                <td>@question.CorrectAnswerText</td>
+            </tr>
+        </tbody>
+    }
+</table>

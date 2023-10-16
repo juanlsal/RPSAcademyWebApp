@@ -1,0 +1,201 @@
+﻿@model RPSAcademy.Models.DTOs.SubjectsAndQuestionsDisplayModel
+
+
+@if (User.IsInRole("User") )
+{
+    <h1 style="text-align:center;">Explore Subjects</h1>
+    <h2 style="text-align:center;">Discover a world of knowledge! View subjects created by us or subjects created by you.</h2>
+
+}
+else
+{
+    <h1 style="text-align:center;">Explore Subjects</h1>
+    <h2 style="text-align:center;">Discover a world of knowledge! View subjects created by us.</h2>
+}
+
+<hr style="margin-bottom:40px " />
+
+@if (!User.IsInRole("User"))
+{
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" fdprocessedid="b1xm7"></button>
+        <strong>Enhance your experience by creating an account. You'll be able to create your own subjects as well as your own questions <a href="/Identity/Account/Register" class="alert-link">Create An Account Now!</a></strong>
+    </div>
+
+    <table class="table table-hover" style="margin-bottom: 80px">
+        <thead>
+            <tr>
+                <th scope="col">Subject</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        @foreach (var subject in Model.DefaultSubjects)
+        {
+            <tbody>
+                <tr class="table-light">
+                    <td>@subject.SubjectName</td>
+                    <td>@subject.Description</td>
+                    <td>
+                        <button type="button" onclick="getRelatedDefaultQuestions(@subject.id)" class="btn btn-dark">View Questions</button>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+
+@if (User.IsInRole("User"))
+{
+    <div class="toggle-container" style="margin-bottom: 30px">
+        <input type="checkbox" id="toggle-switch">
+        <label for="toggle-switch" class="switch"></label>
+    </div>
+
+
+    <div class="table-container" id="admin-subjects">
+        <h3 style="text-align:center;">Subjects Created By Us</h3>
+        <table class="table table-hover" style="margin-bottom: 80px">
+            <thead>
+                <tr>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            @foreach (var subject in Model.DefaultSubjects)
+            {
+                <tbody>
+                    <tr class="table-light">
+                        <td>@subject.SubjectName</td>
+                        <td>@subject.Description</td>
+                        <td>
+                            <button type="button" onclick="getRelatedDefaultQuestions(@subject.id)" class="btn btn-dark">View Questions</button>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+
+    <div class="hidden table-container" id="user-subjects">
+        <h3 style="text-align:center;">Subjects Created By You</h3>
+        @if(Model.UserCreatedSubjects.Count() == 0)
+        {
+            <div class="alert alert-dismissible alert-warning">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" fdprocessedid="b1xm7"></button>
+                <strong>Enhance your experience by creating your own subject! <a href="CreateUserCreatedSubjectForm" class="alert-link">Create Your Own Subject Now!</a></strong>
+            </div>
+        }
+        else
+        {
+            <a href="CreateUserCreatedSubjectForm" class="btn btn-dark" style="margin-bottom: 20px;">Create New Subject</a>
+            <table class="table table-hover" style="margin-bottom: 80px">
+                <thead>
+                    <tr>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Actions</th>
+
+                    </tr>
+                </thead>
+                @foreach (var subject in Model.UserCreatedSubjects)
+                {
+                    <tbody>
+                        <tr class="table-light">
+                            <td>@subject.SubjectName</td>
+                            <td>@subject.Description</td>
+                            <td>
+                                <button type="button" onclick="getRelatedUserCreatedQuestions(@subject.Id)" class="btn btn-dark">Interact With Questions</button>
+                                <button type="button" onclick="getUserCreatedSubject(@subject.Id)" class="btn btn-secondary">Edit Subject</button>
+                                <button type="button" onclick="deleteUserCreatedSubject(@subject.Id)" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+
+        }
+    </div>
+}
+
+<style>
+
+    .hidden {
+        display: none;
+    }
+
+    .toggle-container input[type="checkbox"] {
+        display: none;
+    }
+
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .toggle-container label {
+        display: block;
+        width: 40px;
+        height: 20px;
+        background-color: #ccc;
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .toggle-container label::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: 0.4s;
+    }
+
+    .toggle-container input:checked + label::before {
+        transform: translateX(20px);
+    }
+
+</style>
+
+<script>
+    const toggleSwitch = document.getElementById("toggle-switch");
+    const adminTable = document.getElementById("admin-subjects");
+    const userTable = document.getElementById("user-subjects");
+
+    toggleSwitch.addEventListener("change", function () {
+        if (toggleSwitch.checked) {
+            adminTable.classList.add("hidden");
+            userTable.classList.remove("hidden");
+        } else {
+            adminTable.classList.remove("hidden");
+            userTable.classList.add("hidden");
+        }
+    });
+
+
+    //functions
+    function getRelatedDefaultQuestions(id) {
+        window.location.href = "/Question/GetRelatedDefaultQuestions?subjectId=" + id;
+    }
+
+    function getRelatedUserCreatedQuestions(id) {
+        window.location.href = "/Question/GetRelatedUserCreatedQuestions?subjectId=" + id;
+    }
+
+    function deleteUserCreatedSubject(id) {
+        window.location.href = "/Subject/DeleteUserCreatedSubject?subjectId=" + id;
+    }
+
+    function getUserCreatedSubject(id) {
+        window.location.href = "/Subject/GetUserCreatedSubject?subjectId=" + id;
+    }
+
+</script>

@@ -1,0 +1,40 @@
+﻿@model Opponents
+
+<h1 style="text-align:center;">Edit @Model.Name</h1>
+
+<hr style="margin-bottom:40px "/>
+
+<div class="row">
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <div class="col-md-4">
+            <h4>@Model.Name Picture</h4>
+            <img src="/Images/Opponents/@Model.ImageUrl" style="
+                         border: 3px solid black;
+                         width: 250px;
+                         object-fit: cover;">
+        </div>
+    }
+
+    <div class="col-md-4">
+        <form asp-action="UpdateOpponent" method="post" enctype="multipart/form-data" style="margin-top: 30px;">
+            <div class="mb-3">
+                <input type="file" id="newOpponentImageFile" name="newOpponentImageFile" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="newName">Name</label>
+                <input type="text" id="newName" name="newName" class="form-control" placeholder="@Model.Name" />
+            </div>
+
+            <div class="form-group">
+                <label for="newDescription">Description</label>
+                <input type="text" id="newDescription" name="newDescription" class="form-control" placeholder="@Model.Description" />
+            </div>
+
+            <input type="hidden" id="opponentId" name="opponentId" value="@Model.id" />
+
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
+    </div>
+</div>

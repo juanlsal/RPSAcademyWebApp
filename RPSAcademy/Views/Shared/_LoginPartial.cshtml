@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@*NavBar*@
+<nav class="navbar navbar-expand-lg bg-black" data-bs-theme="dark" style=" position: fixed; z-index:100; width: 100%; margin-bottom: 8%;">
+    <div class="container-fluid" style="background-color: black;">
+        <a class="navbar-brand" href="#">RPS Academy</a>
+        <img src="~/images/logos/rpslogo.png" style="height: 40px; padding-right: 20px;" />
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02" >
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" style="color:lightgray" href="/Home/Index">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" style="color:lightgray" href="/Play/SelectOpponent">Play</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" style="color:lightgray" href="/Subject/GetAllSubjects">View Subjects</a>
+                </li>
+
+
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:lightgray" href="/Profile/CustomizeProfile">Customize Profile</a>
+                    </li>
+                }
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" style="color:lightgray" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin Actions</a>
+                            <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/Admin/GetAllOpponents" style="color:lightgray">Edit Opponents</a>
+                            <a class="dropdown-item" href="/Admin/GetAllDefaultSubjects" style="color:lightgray">Edit Default Subjects</a>
+                            <a class="dropdown-item" href="/Admin/SelectDefaultSubjectToAddTo" style="color:lightgray">Add Default Questions</a>
+                            <a class="dropdown-item" href="/Admin/ViewDefaultsubjects" style="color:lightgray">Edit Default Questions</a>
+                            </div>
+                        </li>
+                }
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:lightgray" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Study Tools</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#" style="color:lightgray">Action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" style="color:lightgray">Separated link</a>
+                    </div>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav">
+                @if (SignInManager.IsSignedIn(User))
+                {
+
+                    <li class="nav-item">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" style="color:lightgray" title="Manage">
+                                Welcome Admin
+                            </a>
+                        }
+                    </li>
+                    <li class="nav-tem">
+                        @if (User.IsInRole("User"))
+                        {
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" style="color:lightgray" title="Manage">
+                                Hello @User.Identity?.Name!
+                            </a>
+                        }
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link" style="color:lightgray">Logout</button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register" style="color:lightgray">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" style="color:lightgray">Login</a>
+                    </li>
+                }
+            </ul>
+
+
+
+        </div>
+    </div>
+</nav>

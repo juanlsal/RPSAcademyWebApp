@@ -1,0 +1,49 @@
+﻿@model RPSAcademy.Models.DTOs.AdminDisplayModel
+
+<h1 style="text-align:center;">Viewing Questions</h1>
+<h2 style="text-align:center;">in @Model.DefaultSubject.SubjectName</h2>
+<hr style="margin-bottom:40px" />
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Question</th>
+            <th scope="col">Answer A</th>
+            <th scope="col">Answer B</th>
+            <th scope="col">Answer C</th>
+            <th scope="col">Answer D</th>
+            <th scope="col">Correct Answer</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    @foreach (var question in Model.DefaultQuestions)
+    {
+        <tbody>
+            <tr class="table-light">
+                <td>@question.Question</td>
+                <td>@question.AnswerA</td>
+                <td>@question.AnswerB</td>
+                <td>@question.AnswerC</td>
+                <td>@question.AnswerD</td>
+                <td>@question.CorrectAnswerText</td>
+                <td>
+                    <button type="button" onclick="getDefaultQuestion(@question.Id)" class="btn btn-secondary">Edit</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteDefaultQuestion(@question.Id, @Model.DefaultSubject.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+<script>
+    function getDefaultQuestion(questionId) {
+        var url = '@Url.Action("GetDefaultQuestion", "Admin")' + '?questionId=' + questionId;
+        window.location.href = url;
+    }
+
+    function deleteDefaultQuestion(questionId, subjectId) {
+        var url = '@Url.Action("DeleteDefaultQuestion", "Admin")' + '?questionId=' + questionId + '&subjectId=' + subjectId;
+        window.location.href = url;
+    }
+</script>

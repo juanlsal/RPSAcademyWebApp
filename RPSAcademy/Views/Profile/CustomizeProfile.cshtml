@@ -1,0 +1,45 @@
+﻿@model UserInfo
+
+<h1>Customize Your Profile</h1>
+<h2>Enhance your experience by personalizing your profile</h2>
+<hr />
+
+<div class="row">
+    @if (!string.IsNullOrEmpty(Model.ProfileImageUrl))
+    {
+        <div class="col-md-4">
+            <h4>Profile Picture</h4>
+            <img src="/uploads/@Model.ProfileImageUrl" style="
+                         border: 3px solid black;
+                         width: 250px;
+                         object-fit: cover;">
+        </div>
+    }
+    else
+    {
+        <div class="col-md-4">
+            <h4>Profile Picture</h4>
+            <img src="/images/NoImageSelected.png" style="
+                         border: 3px solid black;
+                         height: 200px;
+                         object-fit: cover;">
+        </div>
+    }
+
+    <div class="col-md-4">
+        <form asp-action="UpdateUserInfo" method="post" enctype="multipart/form-data" style="margin-top: 30px;">
+            <div class="mb-3">
+                <input type="file" id="imageFile" name="imageFile" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="preferredName">Preferred Name</label>
+                <input type="text" id="preferredName" name="preferredName" class="form-control" placeholder="@Model.PreferredName" />
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+

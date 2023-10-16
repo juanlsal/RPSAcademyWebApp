@@ -1,0 +1,36 @@
+﻿@model RPSAcademy.Models.DTOs.AdminDisplayModel
+
+<h1 style="text-align:center;">Select a Default Subject</h1>
+<h2 style="text-align:center;">to view its questions</h2>
+<hr style="margin-bottom:40px" />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    @foreach (var subject in Model.DefaultSubjects)
+    {
+        <tbody>
+            <tr class="table-light">
+                <td>@subject.SubjectName</td>
+                <td>@subject.Description</td>
+                <td>
+                    <button type="button" onclick="viewDefaultQuestions(@subject.id)" class="btn btn-dark">Select</button>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+
+
+<script>
+    function viewDefaultQuestions(id) {
+        window.location.href = "/Admin/ViewDefaultQuestions?subjectId=" + id;
+    }
+</script>
